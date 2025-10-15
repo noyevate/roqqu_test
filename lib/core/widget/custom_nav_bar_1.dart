@@ -21,8 +21,7 @@ class CustomNavBar1 extends StatelessWidget {
         ),
         child: GradientButton(
           text: 'Proceed',
-          onPressed: () {
-          },
+          onPressed: onPressed,
         ),
       );
   }

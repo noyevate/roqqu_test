@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/core/widget/custom_nav_bar_1.dart';
 import 'package:roqqu_test/features/risk_profile/presentation/pages/risk_profile_screen.dart';
 import '../widgets/onboarding_page_content.dart';
 import '../widgets/progress_indicator_bar.dart';
@@ -82,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
         child: Column(
           children: [
-            const SizedBox(height: 16),
+             SizedBox(height: 16),
             ProgressIndicatorBar(
               pageCount: onboardingData.length,
               currentPage: _currentPage,
@@ -114,33 +115,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             const SizedBox(height: 24),
-            Container(
-              width: double.infinity,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: const LinearGradient(
-                  colors: [
-                    AppColors.primaryGradientStart,
-                    AppColors.primaryGradientEnd,
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
-              ),
-              child: GradientButton(
-                text: 'Get started',
-                onPressed: () {
-                  // Handle "Get started" action
-                  print('Get Started button tapped!');
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RiskProfileScreen()));
-                },
-              ),
-            ),
-            const SizedBox(height: 48),
+            
           ],
         ),
       ),
+      bottomNavigationBar: CustomNavBar1(onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => RiskProfileScreen()));
+      }),
     );
   }
 }

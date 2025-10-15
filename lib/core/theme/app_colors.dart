@@ -3,14 +3,34 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const Color darkBackground = Color(0xFF1A1E2C);
+  static const Color darkBackground = Color(0xFF1C2127);
   static const Color primaryText = Colors.white;
   static const Color secondaryText = Color(0xFF9E9E9E);
-  static const Color bottomContainerBackground = Color(0xFF2E3546);
+  static const Color bottomContainerBackground = Color(0xFF20252B);
+  static const Color tertiaryBackground = Color(0xFF262932);
+  static const Color primaryBackground = Color(0xFF1C2127);
+  static const Color tertiaryText = Color(0xFFA7B1BC);
+
   
   static const Color primaryGradientStart = Color(0xFF6A3DFF);
   static const Color primaryGradientEnd = Color(0xFFF23D78);
 
-  static const Color accentBlue = Colors.blueAccent;
+  static const Color accentBlue = Color(0xFF85D1F0);
   static const Color inactiveGrey = Color(0xFF424242);
+
+  static LinearGradient get dashboardLinearGradient => const LinearGradient(
+        colors: [Color(0xffABE2F3), Color(0xffBDE4E5), Color(0xffEBE9D0)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: [0.0, 0.5, 1.0],
+      );
+
+      static LinearGradient get dashboardLinearGradient_2 => const LinearGradient(
+        colors: [Color(0xffC0CFFE), Color(0xffF3DFF4), Color(0xffF9D8E5)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: [0.0, 0.5, 1.0],
+      );
 }
+
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
 import 'package:roqqu_test/core/widget/custom_nav_bar_1.dart';
+import 'package:roqqu_test/features/copy_trading/presentation/pages/copy_trading_screen.dart';
 import 'package:roqqu_test/features/risk_profile/domain/entities/risk_profile.dart';
 import 'package:roqqu_test/features/risk_profile/presentation/widget/risk_profile_card.dart';
 
@@ -74,13 +75,7 @@ class _RiskProfileScreenState extends State<RiskProfileScreen> {
                 },
               ),
             ),
-            GradientButton(
-              text: 'Proceed',
-              onPressed: () {
-                // Handle proceed action with the selected profile
-                print('Selected profile: ${_profiles[_selectedProfileIndex].title}');
-              },
-            ),
+            
             SizedBox(height: screenHeight * 0.05),
           ],
         ),
@@ -89,7 +84,9 @@ class _RiskProfileScreenState extends State<RiskProfileScreen> {
 
       bottomNavigationBar: CustomNavBar1(onPressed: () {
         print('Selected profile: ${_profiles[_selectedProfileIndex].title}');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CopyTradingScreen()));
       }),
+      
     );
   }
 }
