@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/features/risk_discloure/presentation/widgets/risk_disclosure_bottomsheet.dart';
 
 class CopyWarningBottomSheet extends StatefulWidget {
   const CopyWarningBottomSheet({super.key});
@@ -39,12 +41,15 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.06,
-                vertical: screenHeight * 0.02,
-              ).copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),
+              padding:
+                  EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.06,
+                    vertical: screenHeight * 0.02,
+                  ).copyWith(
+                    bottom: MediaQuery.of(context).viewPadding.bottom + 16,
+                  ),
               child: Column(
-                mainAxisSize: MainAxisSize.min, 
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                     width: 50,
@@ -57,12 +62,14 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                   const SizedBox(height: 24),
                   Image.asset(
                     'assets/images/Important_Message.png',
-                    height: screenHeight * 0.12, 
+                    height: screenHeight * 0.12,
                   ),
                   const SizedBox(height: 24),
                   Text(
                     'Important message!',
-                    style: textTheme.displayLarge?.copyWith(fontSize: screenWidth * 0.06),
+                    style: textTheme.displayLarge?.copyWith(
+                      fontSize: screenWidth * 0.06,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   RichText(
@@ -70,17 +77,29 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                     text: TextSpan(
                       style: textTheme.bodyLarge?.copyWith(height: 1.5),
                       children: [
-                        const TextSpan(style: TextStyle(fontSize: 16), text: "Don't invest unless you're prepared and understand the risks involved in copy trading. ", ),
+                        const TextSpan(
+                          style: TextStyle(fontSize: 16),
+                          text:
+                              "Don't invest unless you're prepared and understand the risks involved in copy trading. ",
+                        ),
                         TextSpan(
                           text: 'Learn more',
                           style: const TextStyle(
                             color: AppColors.accentBlue,
                             decoration: TextDecoration.underline,
                           ),
-                          // recognizer: TapGestureRecognizer()
-                          //   ..onTap = () {
-                          //     print('Learn more tapped!');
-                          //   },
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              // Navigator.of(context).pop();
+                              showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return const RiskDisclosureBottomSheet();
+                                },
+                              );
+                            },
                         ),
                         const TextSpan(text: ' about the risks.'),
                       ],
@@ -92,16 +111,20 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                     child: Row(
                       children: [
                         Checkbox(
-                          
                           value: _isChecked,
                           onChanged: (value) => _toggleCheckbox(),
-                          side: const BorderSide(color: AppColors.tertiaryBackground, width: 2),
+                          side: const BorderSide(
+                            color: AppColors.tertiaryBackground,
+                            width: 2,
+                          ),
                           activeColor: AppColors.accentBlue,
                         ),
                         Expanded(
                           child: Text(
                             'Check this box to agree to Roqqu\'s copy trading policy',
-                            style: textTheme.bodyLarge?.copyWith(fontSize: screenWidth * 0.035),
+                            style: textTheme.bodyLarge?.copyWith(
+                              fontSize: screenWidth * 0.035,
+                            ),
                           ),
                         ),
                       ],
@@ -123,7 +146,9 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                           ),
                           child: Text(
                             'Proceed to copy trade',
-                            style: textTheme.labelLarge?.copyWith(color: Colors.white54),
+                            style: textTheme.labelLarge?.copyWith(
+                              color: Colors.white54,
+                            ),
                           ),
                         ),
                 ],
