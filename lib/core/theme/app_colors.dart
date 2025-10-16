@@ -11,6 +11,7 @@ class AppColors {
   static const Color primaryBackground = Color(0xFF1C2127);
   static const Color tertiaryText = Color(0xFFA7B1BC);
   static const Color infoChipColor = Color.fromRGBO(167, 177, 188, 0.08);
+  static const Color innerBackground = Color(0xFF2A2F36);
 
 
 

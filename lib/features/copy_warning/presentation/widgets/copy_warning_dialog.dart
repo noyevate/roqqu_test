@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/features/enter_amount/presentation/pages/enter_amount_screen.dart';
 import 'package:roqqu_test/features/risk_discloure/presentation/widgets/risk_disclosure_bottomsheet.dart';
 
 class CopyWarningBottomSheet extends StatefulWidget {
@@ -134,7 +135,8 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                   _isChecked
                       ? GradientButton(
                           text: 'Proceed to copy trade',
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EnterAmountScreen())),
+                          
                         )
                       : Container(
                           width: double.infinity,

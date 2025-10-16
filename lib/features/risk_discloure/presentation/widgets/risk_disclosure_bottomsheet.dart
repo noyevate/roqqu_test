@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/features/enter_amount/presentation/pages/enter_amount_screen.dart'
+    show EnterAmountScreen;
 import 'package:roqqu_test/features/risk_discloure/domain/entities/risk_items.dart';
 
 class RiskDisclosureBottomSheet extends StatelessWidget {
@@ -8,15 +10,49 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
 
   // --- MOCK DATA SOURCE ---
   final List<RiskItem> riskItems = const [
-    RiskItem(title: 'Market risks', content: 'The value of cryptocurrencies can be extremely volatile and change rapidly.'),
-    RiskItem(title: 'Dependency on others', content: 'Your investment outcome is dependent on the performance of the trader you are copying.'),
-    RiskItem(title: 'Mismatched risk profiles', content: 'The copied trader\'s risk tolerance may not align with your own financial goals.'),
-    RiskItem(title: 'Control and understanding', content: 'You give up direct control over individual trading decisions.'),
-    RiskItem(title: 'Emotional decisions', content: 'Poor performance can lead to emotional decisions, such as stopping a copy at an inopportune time.'),
-    RiskItem(title: 'Costs involved', content: 'Fees and profit-sharing will impact your overall returns.'),
-    RiskItem(title: 'Diversify', content: 'It is important to diversify your investments and not rely on a single trader.'),
-    RiskItem(title: 'Execution risks', content: 'Slippage and latency can affect the price at which your trades are executed.'),
-    RiskItem(title: 'Copy trading investments can be complex', content: 'Ensure you fully understand the mechanics and risks before investing.'),
+    RiskItem(
+      title: 'Market risks',
+      content:
+          'The value of cryptocurrencies can be extremely volatile and change rapidly.',
+    ),
+    RiskItem(
+      title: 'Dependency on others',
+      content:
+          'Your investment outcome is dependent on the performance of the trader you are copying.',
+    ),
+    RiskItem(
+      title: 'Mismatched risk profiles',
+      content:
+          'The copied trader\'s risk tolerance may not align with your own financial goals.',
+    ),
+    RiskItem(
+      title: 'Control and understanding',
+      content: 'You give up direct control over individual trading decisions.',
+    ),
+    RiskItem(
+      title: 'Emotional decisions',
+      content:
+          'Poor performance can lead to emotional decisions, such as stopping a copy at an inopportune time.',
+    ),
+    RiskItem(
+      title: 'Costs involved',
+      content: 'Fees and profit-sharing will impact your overall returns.',
+    ),
+    RiskItem(
+      title: 'Diversify',
+      content:
+          'It is important to diversify your investments and not rely on a single trader.',
+    ),
+    RiskItem(
+      title: 'Execution risks',
+      content:
+          'Slippage and latency can affect the price at which your trades are executed.',
+    ),
+    RiskItem(
+      title: 'Copy trading investments can be complex',
+      content:
+          'Ensure you fully understand the mechanics and risks before investing.',
+    ),
   ];
 
   @override
@@ -37,22 +73,29 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06)
-                .copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.06,
+            ).copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
                 Center(
                   child: Container(
-                    width: 50, height: 5,
-                    decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(12)),
+                    width: 50,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
                 Text(
                   'Risks involved in copy trading',
-                  style: textTheme.displayLarge?.copyWith(fontSize: screenWidth * 0.055),
+                  style: textTheme.displayLarge?.copyWith(
+                    fontSize: screenWidth * 0.055,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -63,23 +106,38 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    decoration: BoxDecoration(
-      color: AppColors.bottomContainerBackground,
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.bottomContainerBackground,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                     child: ListView.builder(
                       itemCount: riskItems.length,
                       itemBuilder: (context, index) {
                         final item = riskItems[index];
                         return Theme(
-                          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                          data: Theme.of(
+                            context,
+                          ).copyWith(dividerColor: Colors.transparent),
                           child: ExpansionTile(
                             tilePadding: EdgeInsets.zero,
-                            title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
+                            title: Text(
+                              item.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
-                                child: Text(item.content, style: textTheme.bodyLarge?.copyWith(color: Colors.white70)),
+                                padding: const EdgeInsets.only(
+                                  bottom: 16.0,
+                                  right: 16.0,
+                                ),
+                                child: Text(
+                                  item.content,
+                                  style: textTheme.bodyLarge?.copyWith(
+                                    color: Colors.white70,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -91,7 +149,12 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
                 const SizedBox(height: 16),
                 GradientButton(
                   text: 'I have read the risks',
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EnterAmountScreen(),
+                    ),
+                  ),
                 ),
               ],
             ),
