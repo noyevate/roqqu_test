@@ -28,7 +28,7 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
     return Container(
       height: screenHeight * 0.85,
       decoration: const BoxDecoration(
-        color: AppColors.bottomContainerBackground,
+        color: AppColors.darkBackground,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24.0),
           topRight: Radius.circular(24.0),
@@ -61,24 +61,31 @@ class RiskDisclosureBottomSheet extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: riskItems.length,
-                    itemBuilder: (context, index) {
-                      final item = riskItems[index];
-                      return Theme(
-                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          tilePadding: EdgeInsets.zero,
-                          title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
-                              child: Text(item.content, style: textTheme.bodyLarge?.copyWith(color: Colors.white70)),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    decoration: BoxDecoration(
+      color: AppColors.bottomContainerBackground,
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+                    child: ListView.builder(
+                      itemCount: riskItems.length,
+                      itemBuilder: (context, index) {
+                        final item = riskItems[index];
+                        return Theme(
+                          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            tilePadding: EdgeInsets.zero,
+                            title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
+                                child: Text(item.content, style: textTheme.bodyLarge?.copyWith(color: Colors.white70)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
