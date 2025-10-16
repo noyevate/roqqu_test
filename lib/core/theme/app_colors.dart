@@ -34,5 +34,11 @@ class AppColors {
         end: Alignment.bottomCenter,
         stops: [0.0, 0.5, 1.0],
       );
-}
 
+      static LinearGradient get unselectedGradient => const LinearGradient(
+        colors: [Color.fromRGBO(221, 86, 141, 1), Color.fromRGBO(120, 71, 225, 1), Color.fromRGBO(62, 50, 193, 1)],
+        begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        stops: [0.0, 0.5, 1.0],
+      );
+}

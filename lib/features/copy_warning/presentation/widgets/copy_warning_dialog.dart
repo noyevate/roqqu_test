@@ -44,9 +44,8 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                 vertical: screenHeight * 0.02,
               ).copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Crucial for bottom sheets
+                mainAxisSize: MainAxisSize.min, 
                 children: [
-                  // The "handle" bar at the top
                   Container(
                     width: 50,
                     height: 5,
@@ -56,8 +55,8 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  SvgPicture.asset(
-                    'assets/images/important_message.svg',
+                  Image.asset(
+                    'assets/images/Important_Message.png',
                     height: screenHeight * 0.12, 
                   ),
                   const SizedBox(height: 24),
@@ -71,7 +70,7 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                     text: TextSpan(
                       style: textTheme.bodyLarge?.copyWith(height: 1.5),
                       children: [
-                        const TextSpan(text: "Don't invest unless you're prepared and understand the risks involved in copy trading. "),
+                        const TextSpan(style: TextStyle(fontSize: 16), text: "Don't invest unless you're prepared and understand the risks involved in copy trading. ", ),
                         TextSpan(
                           text: 'Learn more',
                           style: const TextStyle(
@@ -93,9 +92,10 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                     child: Row(
                       children: [
                         Checkbox(
+                          
                           value: _isChecked,
                           onChanged: (value) => _toggleCheckbox(),
-                          side: const BorderSide(color: Colors.white54, width: 2),
+                          side: const BorderSide(color: AppColors.tertiaryBackground, width: 2),
                           activeColor: AppColors.accentBlue,
                         ),
                         Expanded(
@@ -118,7 +118,7 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                           height: 56,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.1),
+                            gradient: AppColors.unselectedGradient,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(

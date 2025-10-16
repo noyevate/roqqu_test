@@ -345,7 +345,15 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen> with Single
         bottom: MediaQuery.of(context).viewPadding.bottom + 16,
       ),
       child: GradientButton(text: 'Copy trade', onPressed: () {
-        
+        showModalBottomSheet(
+            context: context,
+            
+            backgroundColor: Colors.transparent,
+            isScrollControlled: true, 
+            builder: (context) {
+              return const CopyWarningBottomSheet();
+            },
+          );
       }),
     );
   }
