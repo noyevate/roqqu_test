@@ -3,6 +3,7 @@ import 'package:flutter/services.dart'; // Required for keyboard input formatter
 import 'package:intl/intl.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/features/enter_amount/presentation/widget/enter_amout_text_field.dart';
 
 class EnterAmountScreen extends StatefulWidget {
   const EnterAmountScreen({super.key});
@@ -29,23 +30,20 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     });
 
     // Show the keyboard as soon as the screen is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FocusScope.of(context).requestFocus(_focusNode);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   FocusScope.of(context).requestFocus(_focusNode);
+    // });
   }
 
   @override
   void dispose() {
-    // Clean up the controller and focus node to prevent memory leaks
     _amountController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
   void _onUseMaxPressed() {
-    // Update the controller's text, which will notify listeners
     _amountController.text = _balance.toStringAsFixed(0);
-    // Move cursor to the end of the text
     _amountController.selection = TextSelection.fromPosition(
       TextPosition(offset: _amountController.text.length),
     );
@@ -56,7 +54,6 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     
-    // Get the current amount from the controller
     final String currentAmountText = _amountController.text.isEmpty ? '0' : _amountController.text;
     final double enteredAmount = double.tryParse(currentAmountText) ?? 0;
     final double transactionFee = enteredAmount * 0.01;
@@ -84,30 +81,19 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
       ),
       body: Stack(
         children: [
-          // --- INVISIBLE TEXTFIELD ---
-          // This widget's job is to simply handle the keyboard input.
-          // It's placed in a Stack so it doesn't affect the layout of the visible UI.
+         
           Padding(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
-            child: TextField(
-              controller: _amountController,
-              focusNode: _focusNode,
-              autofocus: true,
-              keyboardType: TextInputType.number, // Use the number keypad
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Allow only numbers
-              enableSuggestions: false,
-              decoration: const InputDecoration(border: InputBorder.none),
-            ),
+            child: EnterAmoutTextField(amountController: _amountController, focusNode: _focusNode),
           ),
           
-          // --- VISIBLE UI ---
           Padding(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06)
                 .copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end, // Align content to the bottom
+              mainAxisAlignment: MainAxisAlignment.end, 
               children: [
-                const Spacer(), // Pushes the amount display down
+                const Spacer(), 
                 Text(
                   '$currentAmountText USD',
                   style: TextStyle(
@@ -159,10 +145,8 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Conditional GradientButton
                 canContinue
                     ? GradientButton(text: 'Continue', onPressed: () {
-                        // Handle continue action
                         print('Continue with amount: $currentAmountText');
                       })
                     : Container(
