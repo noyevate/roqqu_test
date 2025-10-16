@@ -20,7 +20,7 @@ class CustomNavBar1 extends StatelessWidget {
           bottom: MediaQuery.of(context).viewPadding.bottom + 10,
         ),
         child: GradientButton(
-          text: 'Proceed',
+          text: text ?? 'Proceed' ,
           onPressed: onPressed,
         ),
       );

@@ -3,6 +3,9 @@ import 'package:flutter/services.dart'; // Required for keyboard input formatter
 import 'package:intl/intl.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/theme/gradient_button.dart';
+import 'package:roqqu_test/core/utils/string_to_int.dart';
+import 'package:roqqu_test/features/confirm_transaction/domain/entities/transaction_data.dart';
+import 'package:roqqu_test/features/confirm_transaction/presentation/pages/confirm_transaction_screen.dart';
 import 'package:roqqu_test/features/enter_amount/presentation/widget/enter_amout_text_field.dart';
 
 class EnterAmountScreen extends StatefulWidget {
@@ -55,7 +58,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     
     final String currentAmountText = _amountController.text.isEmpty ? '0' : _amountController.text;
-    final double enteredAmount = double.tryParse(currentAmountText) ?? 0;
+    final int enteredAmount = safeIntParse(currentAmountText);  //double.tryParse(currentAmountText)) ?? 0;
     final double transactionFee = enteredAmount * 0.01;
     final bool canContinue = enteredAmount > 0;
 
@@ -147,6 +150,19 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
                 const SizedBox(height: 24),
                 canContinue
                     ? GradientButton(text: 'Continue', onPressed: () {
+                       final data = TransactionData(
+      amount: enteredAmount,
+      fee: safeIntParse(transactionFee),
+      proTraderName: 'BTC Master', // This would come from the previous screen's data
+    );
+    
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ConfirmTransactionScreen(
+          transactionData: data,
+        ),
+      ),
+    );
                         print('Continue with amount: $currentAmountText');
                       })
                     : Container(

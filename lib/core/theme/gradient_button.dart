@@ -38,7 +38,8 @@ class GradientButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.labelLarge,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
+          // Theme.of(context).textTheme.labelLarge,
         ),
       ),
     );
