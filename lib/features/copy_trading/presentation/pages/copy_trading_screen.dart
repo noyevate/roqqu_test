@@ -6,6 +6,7 @@ import 'package:roqqu_test/features/copy_trading/domain/entities/pro_trader.dart
 import 'package:roqqu_test/features/copy_trading/presentation/widget/dashboard_card.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/spackline_chart.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avatar.dart';
+import 'package:roqqu_test/features/trading_details/presentation/pages/trading_details_screen.dart';
 
 class CopyTradingScreen extends StatefulWidget {
   const CopyTradingScreen({super.key});
@@ -115,7 +116,9 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TradingDetailsScreen()));
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black.withOpacity(0.2),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

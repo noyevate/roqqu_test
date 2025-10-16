@@ -10,6 +10,9 @@ class AppColors {
   static const Color tertiaryBackground = Color(0xFF262932);
   static const Color primaryBackground = Color(0xFF1C2127);
   static const Color tertiaryText = Color(0xFFA7B1BC);
+  static const Color infoChipColor = Color.fromRGBO(167, 177, 188, 0.08);
+
+
 
   
   static const Color primaryGradientStart = Color(0xFF6A3DFF);
@@ -32,5 +35,4 @@ class AppColors {
         stops: [0.0, 0.5, 1.0],
       );
 }
-
 
