@@ -15,10 +15,9 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 56, // A standard, accessible button height
+      height: 56, 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        // We use the centralized colors we defined in AppColors
         gradient: const LinearGradient(
           colors: [
             AppColors.primaryGradientStart,
@@ -37,7 +36,6 @@ class GradientButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        // We use the centralized text style we defined in our AppTheme
         child: Text(
           text,
           style: Theme.of(context).textTheme.labelLarge,

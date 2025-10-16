@@ -8,7 +8,7 @@ class ProTrader extends Equatable {
   final double pnl;
   final int winRate;
   final double aum;
-  final List<double> chartData; // For the sparkline chart
+  final List<double> chartData; 
 
   const ProTrader({
     required this.initials,

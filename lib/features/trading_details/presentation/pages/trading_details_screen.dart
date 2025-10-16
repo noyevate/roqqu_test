@@ -7,6 +7,7 @@ import 'package:roqqu_test/core/utils/color_generator.dart';
 import 'package:roqqu_test/core/utils/label_formatters.dart';
 import 'package:roqqu_test/features/copy_trading/domain/entities/pro_trader.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avatar.dart';
+import 'package:roqqu_test/features/copy_warning/presentation/widgets/copy_warning_dialog.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_details.dart';
 import 'package:roqqu_test/features/trading_details/presentation/performace_line_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/asset_allocation_donut_chart.dart';
@@ -343,7 +344,9 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen> with Single
         top: 16,
         bottom: MediaQuery.of(context).viewPadding.bottom + 16,
       ),
-      child: GradientButton(text: 'Copy trade', onPressed: () {}),
+      child: GradientButton(text: 'Copy trade', onPressed: () {
+        
+      }),
     );
   }
 }
