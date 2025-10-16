@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:roqqu_test/core/theme/gradient_button.dart';
 import 'package:roqqu_test/core/widget/custom_nav_bar_1.dart';
+import 'package:roqqu_test/features/confirm_pin/presentation/pages/confirm_pin_screen.dart';
 import 'package:roqqu_test/features/confirm_transaction/domain/entities/transaction_data.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/features/confirm_transaction/presentation/widget/transaction_detail_row.dart';
@@ -64,12 +64,17 @@ class ConfirmTransactionScreen extends StatelessWidget {
               ),
             ),
 
-            const Spacer(),
           ],
         ),
         
       ),
-      bottomNavigationBar: CustomNavBar1(onPressed: () {},text: "Confirm transaction",),
+      bottomNavigationBar: CustomNavBar1(onPressed: () {
+        Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ConfirmPinScreen(),
+      ),
+    );
+      },text: "Confirm transaction",),
     );
   }
 }
