@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/core/utils/label_formatters.dart';
+import 'package:roqqu_test/features/dashboard/domain/entities/current_trade_item.dart';
 import 'package:roqqu_test/features/dashboard/domain/entities/dashboard_data.dart';
 import 'package:roqqu_test/features/dashboard/domain/entities/trade_history_item.dart';
+import 'package:roqqu_test/features/dashboard/domain/entities/trading_stats.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/custom_tabbar.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/stat_row.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_history_card.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_pair_chip.dart'
+    show TradingPairChip;
 import 'package:roqqu_test/features/trading_details/presentation/performace_line_chart.dart';
 
 class MyDashboardScreen extends StatefulWidget {
@@ -28,6 +33,29 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
   Future<DashboardData> _fetchDashboardData() async {
     await Future.delayed(const Duration(seconds: 1));
     return DashboardData(
+      stats: const TradingStats(
+        proTraders: 17,
+        tradingDays: 43,
+        profitShare: 15,
+        totalOrders: 56,
+        averageLosses: 0.0,
+        totalCopyTrades: 72,
+        tradingPairs: [
+          'BTCUSDT',
+          'ETHUSDT',
+          'XRPUSDT',
+          'TIAUSDT',
+          'DOGEUSDT',
+          'PERPUSDT',
+          'TIAUSDT',
+          'DOGEUSDT',
+          'PERPUSDT',
+          'TIAUSDT',
+          'DOGEUSDT',
+          'PERPUSDT',
+        ],
+      ),
+
       copyTradingAssets: 5564.96,
       netProfit: 5564.96,
       todaysPnl: 207.25,
@@ -43,6 +71,26 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
         75000,
         80000,
         78000,
+      ],
+      currentTrades: const [
+        CurrentTradeItem(
+          pair: 'BTCUSDT',
+          leverage: '10X',
+          roi: 3.28,
+          proTrader: 'BTC master',
+          entryPrice: 1.9661,
+          marketPrice: 1.9728,
+          entryTime: '01:22 PM',
+        ),
+        CurrentTradeItem(
+          pair: 'ETHUSDT',
+          leverage: '5X',
+          roi: 1.52,
+          proTrader: 'ETH King',
+          entryPrice: 150.45,
+          marketPrice: 152.80,
+          entryTime: '11:58 AM',
+        ),
       ],
       tradeHistory: const [
         TradeHistoryItem(
@@ -74,9 +122,7 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My dashboard'),
-      ),
+      appBar: AppBar(title: const Text('My dashboard')),
       body: FutureBuilder<DashboardData>(
         future: _fetchDashboardData(),
         builder: (context, snapshot) {
@@ -96,7 +142,6 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
       children: [
         _buildHeader(data, currencyFormat),
 
-        // 👇 This part expands to fill the rest of the screen
         Expanded(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -107,7 +152,6 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
             ),
             child: Column(
               children: [
-                // Top rounded corners already handled by parent
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
@@ -116,38 +160,27 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
                       bottom: BorderSide(color: Color(0xFF22262B), width: 1),
                     ),
                   ),
-                  child: CustomTabBar(controller: _tabController, tabs: 
-                  const [
+                  child: CustomTabBar(
+                    controller: _tabController,
+                    tabs: const [
                       'Chart',
                       'Current trades',
                       'Stats',
                       'My traders',
-                    ],),
-                  // child: TabBar(
-                  //   controller: _tabController,
-                  //   labelColor: Colors.white,
-                  //   unselectedLabelColor: Colors.white54,
-                  //   indicatorColor: Colors.white,
-                  //   tabs: const [
-                  //     Tab(text: 'Chart'),
-                  //     Tab(text: 'Current trades'),
-                  //     Tab(text: 'Stats'),
-                  //     Tab(text: 'My traders'),
-  
-                  //   ],
-                  // ),
+                    ],
+                  ),
                 ),
 
-                // 👇 Make TabBarView fill and scroll independently
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
                     children: [
                       _buildScrollableTab(_buildChartTabView(data)),
-                      _buildScrollableTab(
-                        const Center(child: Text('Current Trades')),
-                      ),
-                      _buildScrollableTab(const Center(child: Text('Stats'))),
+
+                      _buildScrollableTab(_buildCurrentTradesTabView(data)),
+
+                      _buildStatsTabView(data),
+
                       _buildScrollableTab(
                         const Center(child: Text('My Traders')),
                       ),
@@ -165,7 +198,6 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
 
   Widget _buildScrollableTab(Widget child) {
     return SingleChildScrollView(
-      // padding: const EdgeInsets.all(16.0),
       physics: const BouncingScrollPhysics(),
       child: child,
     );
@@ -249,13 +281,9 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // The chart itself is in its own styled container now
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            decoration: BoxDecoration(
-              // color: AppColors.tertiaryBackground,
-              borderRadius: BorderRadius.circular(12),
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
             child: Column(
               children: [
                 Row(
@@ -307,13 +335,13 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
-                        color: AppColors.tertiaryBackground,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                    color: AppColors.tertiaryBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: const Row(
                     children: [
                       Text('7 days '),
@@ -326,144 +354,184 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
           ),
 
           Column(
-          children: data.tradeHistory.map((item) {
-            return Column(
-              children: [
-                // 🔹 Header (moved out of the card)
-                
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                  decoration: BoxDecoration(
-                    color: AppColors.innerBackground,
-                   
-                  ),
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/bitcoin.png', height: 24),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${item.pair} - ${item.leverage}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '+${item.roi.toStringAsFixed(2)}% ROI',
-                        style: const TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10,),
+            children: data.tradeHistory.map((item) {
+              return Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(color: AppColors.innerBackground),
+                    child: Row(
+                      children: [
+                        Image.asset('assets/images/bitcoin.png', height: 24),
+                        const SizedBox(width: 8),
+                        Row(
+                          children: [
+                            Text(
+                              '${item.pair}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, ),
-                  child: TradingHistoryCard(item: item),
-                ),
-                const SizedBox(height: 12),
-              ],
-            );
-          }).toList(),
-        ),
-      ],
+                            Text(
+                              ' - ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+
+                            Text(
+                              '${item.leverage}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.accentBlue,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Text(
+                          '+${item.roi.toStringAsFixed(2)}% ROI',
+                          style: const TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: TradingHistoryCard(item: item),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
 }
 
-// Helper class to make the TabBar stick when scrolling
-class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverTabBarDelegate(this.tabBar);
-  final TabBar tabBar;
-  @override
-  double get minExtent => tabBar.preferredSize.height;
-  @override
-  double get maxExtent => tabBar.preferredSize.height;
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: tabBar,
-    );
-  }
+Widget _buildCurrentTradesTabView(DashboardData data) {
+  return Column(
+    children: data.tradeHistory.map((item) {
+      return Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+            decoration: BoxDecoration(color: AppColors.innerBackground),
+            child: Row(
+              children: [
+                Image.asset('assets/images/bitcoin.png', height: 24),
+                const SizedBox(width: 8),
+                Row(
+                  children: [
+                    Text(
+                      '${item.pair}',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
 
-  @override
-  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) => false;
+                    Text(
+                      ' - ',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+
+                    Text(
+                      '${item.leverage}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.accentBlue,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Text(
+                  '+${item.roi.toStringAsFixed(2)}% ROI',
+                  style: const TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: TradingHistoryCard(item: item),
+          ),
+          const SizedBox(height: 12),
+        ],
+      );
+    }).toList(),
+  );
 }
 
+Widget _buildStatsTabView(DashboardData data) {
+  final stats = data.stats;
+  return ListView(
+    padding: const EdgeInsets.all(16.0),
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Trading statistics',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: AppColors.innerBackground,
+              border: Border.all(color: AppColors.tertiaryBackground),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Row(
+              children: [
+                Text('7 days '),
+                Icon(Icons.keyboard_arrow_down, size: 16),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 8),
+      StatRow(label: 'PRO traders', value: '${stats.proTraders}', valueColor: AppColors.accentBlue,),
+      StatRow(label: 'Trading days', value: '${stats.tradingDays}'),
+      StatRow(label: 'Profit-share', value: '${stats.profitShare}%'),
+      StatRow(label: 'Total orders', value: '${stats.totalOrders}'),
+      StatRow(
+        label: 'Average losses',
+        value: '${stats.averageLosses.toStringAsFixed(2)} USDT',
+        valueColor: Colors.redAccent,
+      ),
+      StatRow(label: 'Total copy trades', value: '${stats.totalCopyTrades}'),
 
-//   Widget _buildChartTabView(DashboardData data) {
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(16.0),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             padding: const EdgeInsets.all(16.0),
-//             decoration: BoxDecoration(
-//               color: AppColors.tertiaryBackground,
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             child: Column(
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     const Text(
-//                       'Copy trading PNL',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Container(
-//                       padding: const EdgeInsets.symmetric(
-//                         horizontal: 12,
-//                         vertical: 6,
-//                       ),
-//                       decoration: BoxDecoration(
-//                         color: Colors.black26,
-//                         borderRadius: BorderRadius.circular(8),
-//                       ),
-//                       child: const Row(
-//                         children: [
-//                           Text('7 days '),
-//                           Icon(Icons.keyboard_arrow_down, size: 16),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 const SizedBox(height: 20),
-//                 SizedBox(
-//                   height: 150,
-//                   child: PerformanceLineChart(
-//                     data: data.pnlChartData,
-//                     yAxisLabelFormatter: LabelFormatters.formatPnlValue,
-//                     showGrid: true,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           const Text(
-//             'Trading History',
-//             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-//           ),
-//           ListView.separated(
-//             itemCount: data.tradeHistory.length,
-//             shrinkWrap: true,
-//             physics: const NeverScrollableScrollPhysics(),
-//             separatorBuilder: (context, index) => const SizedBox(height: 16),
-//             itemBuilder: (context, index) =>
-//                 TradingHistoryCard(item: data.tradeHistory[index]),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+      const SizedBox(height: 24),
+      const Text(
+        'Trading pairs',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+      ),
+      const SizedBox(height: 16),
+      Wrap(
+        spacing: 12.0, 
+        runSpacing: 12.0,
+        children: stats.tradingPairs
+            .map((pair) => TradingPairChip(pair: pair))
+            .toList(),
+      ),
+    ],
+  );
+}

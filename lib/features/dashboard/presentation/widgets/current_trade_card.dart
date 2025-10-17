@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:roqqu_test/core/theme/app_colors.dart';
-import 'package:roqqu_test/features/dashboard/domain/entities/trade_history_item.dart';
+import 'package:roqqu_test/features/dashboard/domain/entities/current_trade_item.dart';
 
-class TradingHistoryCard extends StatelessWidget {
-  final TradeHistoryItem item;
-  const TradingHistoryCard({super.key, required this.item});
+class CurrentTradeCard extends StatelessWidget {
+  final CurrentTradeItem item;
+  const CurrentTradeCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // color: AppColors.tertiaryBackground,
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Column(
         children: [
-          SizedBox(height: 10),
           
-          SizedBox(height: 10),
-          _buildDetailRow('PRO trader', item.proTrader, hasAvatar: true),
-          _buildDetailRow('Entry price', '${item.entryPrice} USDT'),
-          _buildDetailRow('Exit price', '${item.exitPrice} USDT'),
-          _buildDetailRow('PRO trader amount', '${item.proTraderAmount} USDT'),
-          _buildDetailRow('Entry time', item.entryTime),
-          _buildDetailRow('Exit time', item.exitTime),
+         
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                _buildDetailRow('PRO trader', item.proTrader, hasAvatar: true),
+                _buildDetailRow('Entry price', '${item.entryPrice} USDT'),
+                _buildDetailRow('Market price', '${item.marketPrice} USDT'),
+                _buildDetailRow('Entry time', item.entryTime),
+              ],
+            ),
+          ),
         ],
       ),
     );
