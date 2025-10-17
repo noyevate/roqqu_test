@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 import 'package:roqqu_test/features/confirm_pin/presentation/widget/pin_input_field.dart';
 import 'package:roqqu_test/features/confirm_pin/presentation/widget/pin_keypad.dart';
+import 'package:roqqu_test/features/transaction_success/presentaion/pages/transaction_success_screen.dart';
 
 class ConfirmPinScreen extends StatefulWidget {
   const ConfirmPinScreen({super.key});
@@ -26,6 +27,14 @@ class _ConfirmPinScreenState extends State<ConfirmPinScreen> {
 
     if (_pin.length == _pinLength) {
       print('PIN entered: $_pin');
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const TransactionSuccessScreen(
+            traderName: 'BTC Master', 
+          ),
+        ),
+        (Route<dynamic> route) => false,
+      );
     }
   }
 
