@@ -50,13 +50,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Define your colors and text styles here or in a separate theme file
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // const Color darkBackgroundColor = Color(0xFF1A1E2C);
-    // const Color primaryTextColor = Colors.white;
-    // const Color secondaryTextColor = Color(0xFF9E9E9E);
 
     return Scaffold(
       backgroundColor: AppColors.darkBackground,

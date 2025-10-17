@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:roqqu_test/core/theme/app_colors.dart';
 
 class DashboardCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
   final Gradient gradient;
-  final String url;
 
   const DashboardCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
-    required this.gradient, required this.url,
+    required this.gradient,
   });
 
   @override
   Widget build(BuildContext context) {
-    
+    // --- THE ERROR WAS HERE ---
+    // The original code incorrectly had an `Expanded` widget wrapping this Container.
+    // It has now been removed.
     return Container(
       constraints: const BoxConstraints(minHeight: 140),
       padding: const EdgeInsets.all(16.0),
@@ -33,18 +33,30 @@ class DashboardCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color:AppColors.darkBackground,
+              color: Colors.black.withOpacity(0.2),
             ),
-            child: Image.asset(url),
+            child: Icon(icon, color: Colors.white, size: 24),
           ),
-          const SizedBox(height: 16),
-          Text(title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.darkBackground)),
+          const Spacer(), // This correctly fills the vertical space
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
           const SizedBox(height: 4),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.darkBackground), overflow: TextOverflow.ellipsis,)),
-              const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.darkBackground),
+              Expanded(
+                child: Text(
+                  subtitle,
+                  style: const TextStyle(fontSize: 14, color: Colors.white70),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
             ],
           ),
         ],

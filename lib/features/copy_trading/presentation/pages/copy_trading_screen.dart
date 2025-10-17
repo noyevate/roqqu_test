@@ -6,6 +6,7 @@ import 'package:roqqu_test/features/copy_trading/domain/entities/pro_trader.dart
 import 'package:roqqu_test/features/copy_trading/presentation/widget/dashboard_card.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/spackline_chart.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avatar.dart';
+import 'package:roqqu_test/features/dashboard/presentation/pages/my_dashboard_screen.dart';
 import 'package:roqqu_test/features/trading_details/presentation/pages/trading_details_screen.dart';
 
 class CopyTradingScreen extends StatefulWidget {
@@ -41,7 +42,11 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
             const SizedBox(height: 16),
             Row(
               children: [
-                Expanded(child: Image.asset( "assets/images/dashboard_2.png")),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyDashboardScreen()));
+                  },
+                  child: Expanded(child: Image.asset( "assets/images/dashboard_2.png"))),
                 // Expanded(child: DashboardCard(url:"assets/images/icon_1.png", title: 'My dashboard', subtitle: 'View trades', icon: Icons.dashboard, gradient: AppColors.dashboardLinearGradient)),
                 const SizedBox(width: 16),
 
