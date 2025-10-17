@@ -7,6 +7,8 @@ import 'package:roqqu_test/features/dashboard/domain/entities/dashboard_data.dar
 import 'package:roqqu_test/features/dashboard/domain/entities/trade_history_item.dart';
 import 'package:roqqu_test/features/dashboard/domain/entities/trading_stats.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/custom_tabbar.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/my_trader.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/my_trader_card.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/stat_row.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_history_card.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_pair_chip.dart'
@@ -33,6 +35,11 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
   Future<DashboardData> _fetchDashboardData() async {
     await Future.delayed(const Duration(seconds: 1));
     return DashboardData(
+      myTraders: const [
+      MyTrader(name: 'Jaykay Kayode', initials: 'JK', totalVolume: 996.28, tradingProfit: 278.81),
+      MyTrader(name: 'Okobi Laura', initials: 'OL', totalVolume: 996.28, tradingProfit: 278.81),
+      MyTrader(name: 'Tosin Lasisi', initials: 'TL', totalVolume: 996.28, tradingProfit: 278.81),
+    ],
       stats: const TradingStats(
         proTraders: 17,
         tradingDays: 43,
@@ -181,9 +188,7 @@ class _MyDashboardScreenState extends State<MyDashboardScreen>
 
                       _buildStatsTabView(data),
 
-                      _buildScrollableTab(
-                        const Center(child: Text('My Traders')),
-                      ),
+                      _buildMyTradersTabView(data)
                     ],
                   ),
                 ),
@@ -535,3 +540,32 @@ Widget _buildStatsTabView(DashboardData data) {
     ],
   );
 }
+
+Widget _buildMyTradersTabView(DashboardData data) {
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            hintText: 'Search for PRO traders',
+            suffixIcon: const Icon(Icons.search),
+            filled: true,
+            fillColor: AppColors.innerBackground,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              borderSide: BorderSide.none
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        ListView.builder(
+          itemCount: data.myTraders.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return MyTraderCard(trader: data.myTraders[index]);
+          },
+        ),
+      ],
+    );
+  }

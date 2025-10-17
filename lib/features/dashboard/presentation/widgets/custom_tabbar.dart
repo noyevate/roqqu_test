@@ -65,7 +65,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: isActive ? Colors.white : Colors.transparent,
+                      color: isActive ? AppColors.accentBlue : Colors.transparent,
                       width: 2.5,
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:roqqu_test/features/dashboard/domain/entities/current_trade_item.dart';
 import 'package:roqqu_test/features/dashboard/domain/entities/trading_stats.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/my_trader.dart';
 
 import 'trade_history_item.dart';
 
@@ -11,6 +12,7 @@ class DashboardData {
   final List<TradeHistoryItem> tradeHistory;
   final List<CurrentTradeItem> currentTrades;
   final TradingStats stats;
+  final List<MyTrader> myTraders; 
   
 
   const DashboardData({
@@ -21,5 +23,6 @@ class DashboardData {
     required this.tradeHistory,
     required this.currentTrades,
     required this.stats,
+    required this.myTraders
   });
 }
