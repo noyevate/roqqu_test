@@ -8,11 +8,13 @@ import 'package:roqqu_test/core/utils/label_formatters.dart';
 import 'package:roqqu_test/features/copy_trading/domain/entities/pro_trader.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avatar.dart';
 import 'package:roqqu_test/features/copy_warning/presentation/widgets/copy_warning_dialog.dart';
+import 'package:roqqu_test/features/dashboard/presentation/widgets/custom_tabbar.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_details.dart';
 import 'package:roqqu_test/features/trading_details/presentation/performace_line_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/asset_allocation_donut_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/holding_period_scatter_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/info_chip.dart';
+import 'package:roqqu_test/features/trading_details/presentation/widget/trading_details_custom_tab.dart';
 
 class TradingDetailsScreen extends StatefulWidget {
   const TradingDetailsScreen({super.key});
@@ -47,6 +49,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen> with Single
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Trading details'),),
       body: FutureBuilder<TraderDetails>(
         future: _fetchTraderDetails(),
         builder: (context, snapshot) {
@@ -63,56 +66,103 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen> with Single
 
   Widget _buildContent(TraderDetails details) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          title: const Text('Trading details'),
-          pinned: true,
-          elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return Column(
+      children: [
+        // SliverAppBar(
+        //   title: const Text('Trading details'),
+        //   pinned: true,
+        //   elevation: 0,
+        //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildTraderHeader(details.trader, screenWidth),
+              const SizedBox(height: 16),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: _buildInfoChips(details)),
+              const SizedBox(height: 20),
+              _buildCertifiedBanner(),
+            ],
+          ),
         ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: AppColors.bottomContainerBackground,
+              border: Border.all(color: AppColors.bottomContainerBackground),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTraderHeader(details.trader, screenWidth),
-                const SizedBox(height: 16),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: _buildInfoChips(details)),
-                const SizedBox(height: 20),
-                _buildCertifiedBanner(),
-                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  decoration: const BoxDecoration(
+                    color: AppColors.darkBackground,
+                    border: Border(
+                      bottom: BorderSide(color: Color(0xFF22262B), width: 1),
+                    ),
+                  ),
+                  child: TradingDetailsCustomTab(
+                    controller: _tabController,
+                    tabs: const [
+                      'Chart',
+                      'Stats',
+                      'All Trades',
+                      'Copiers',
+                    ],
+                  ),
+                ),
+
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildChartTabView(details),
+              const Center(child: Text('Stats View')),
+              const Center(child: Text('All Trades View')),
+              const Center(child: Text('Copiers View')),
+                      // _buildScrollableTab(_buildChartTabView(data)),
+
+                      // _buildScrollableTab(_buildCurrentTradesTabView(data)),
+
+                      // _buildStatsTabView(data),
+
+                      // _buildMyTradersTabView(data)
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        SliverPersistentHeader(
-          delegate: _SliverTabBarDelegate(
-            TabBar(
-              labelColor: AppColors.primaryText,
-              padding: EdgeInsets.zero,
-              dividerColor: Colors.transparent,
-              controller: _tabController,
-              isScrollable: true,
-              tabs: const [Tab(text: 'Chart'), Tab(text: 'Stats'), Tab(text: 'All Trades'), Tab(text: 'Copiers')],
-            ),
-          ),
-          pinned: true,
-        ),
-        SliverFillRemaining(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              _buildChartTabView(details),
-              const Center(child: Text('Stats View')),
-              const Center(child: Text('All Trades View')),
-              const Center(child: Text('Copiers View')),
-            ],
-          ),
-        )
+        
+        // SliverPersistentHeader(
+        //   delegate: _SliverTabBarDelegate(
+            
+        //     // TabBar(
+        //     //   labelColor: AppColors.primaryText,
+        //     //   padding: EdgeInsets.zero,
+        //     //   dividerColor: Colors.transparent,
+        //     //   controller: _tabController,
+        //     //   isScrollable: true,
+        //     //   tabs: const [Tab(text: 'Chart'), Tab(text: 'Stats'), Tab(text: 'All Trades'), Tab(text: 'Copiers')],
+        //     // ),
+        //   ),
+        //   pinned: true,
+        // ),
+        // SliverFillRemaining(
+        //   child: TabBarView(
+        //     controller: _tabController,
+        //     children: [
+              
+        //     ],
+        //   ),
+        // )
       ],
     );
   }
@@ -326,6 +376,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen> with Single
   }
   
   Widget _buildLegendItem(Color color, String text) {
+    
     return Row(
       children: [
         Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
