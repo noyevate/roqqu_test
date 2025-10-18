@@ -10,6 +10,7 @@ import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avat
 import 'package:roqqu_test/features/copy_warning/presentation/widgets/copy_warning_dialog.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/stat_row.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_pair_chip.dart';
+import 'package:roqqu_test/features/trading_details/domain/entities/copier.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/nested_current_trade.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/nested_trading_history.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_details.dart';
@@ -17,6 +18,7 @@ import 'package:roqqu_test/features/trading_details/domain/entities/trading_stat
 import 'package:roqqu_test/features/trading_details/presentation/performace_line_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/all_trades_tab_view.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/asset_allocation_donut_chart.dart';
+import 'package:roqqu_test/features/trading_details/presentation/widget/copier_card.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/holding_period_scatter_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/info_chip.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/trading_details_custom_tab.dart';
@@ -35,6 +37,44 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
   Future<TraderDetails> _fetchTraderDetails() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return TraderDetails(
+      copiers: const [
+        Copier(
+          name: 'Jaykay Kayode',
+          initials: 'JK',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+        Copier(
+          name: 'Okobi Laura',
+          initials: 'OL',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+        Copier(
+          name: 'Tosin Lasisi',
+          initials: 'TL',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+        Copier(
+          name: 'Victor Chukwu',
+          initials: 'VC',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+        Copier(
+          name: 'Onwuamaoke Ebere',
+          initials: 'OE',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+        Copier(
+          name: 'Omotola Bello',
+          initials: 'OB',
+          totalVolume: 996.28,
+          tradingProfit: 278.81,
+        ),
+      ],
       allTradesCurrent: const [
         NestedCurrentTrade(
           pair: 'BTCUSDT',
@@ -73,7 +113,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
         NestedTradeHistory(
           pair: 'XRPUSDT',
           leverage: '20X',
-          roi: -1.15, 
+          roi: -1.15,
           entryPrice: 0.5210,
           exitPrice: 0.5150,
           copiers: 30,
@@ -93,8 +133,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
           exitTime: '1 day ago',
         ),
       ],
-    
-      
+
       trader: const ProTrader(
         initials: 'BM',
         name: 'BTC Master',
@@ -215,10 +254,11 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
                     children: [
                       _buildChartTabView(details),
                       _buildStatsTabView(details),
-                      
-                      AllTradesTabView(details: details,),
-                      const Center(child: Text('Copiers View')),
-                     
+
+                      AllTradesTabView(details: details),
+                      _buildCopiersTabView(details),
+
+                      // const Center(child: Text('Copiers View')),
                     ],
                   ),
                 ),
@@ -388,9 +428,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
     return Container(
       padding: const EdgeInsets.all(16),
 
-      decoration: BoxDecoration(
-        color: AppColors.bottomContainerBackground,
-      ),
+      decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
       child: Column(
         children: [
           Row(
@@ -433,9 +471,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
   Widget _buildAssetsAllocationCard() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.bottomContainerBackground,
-      ),
+      decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -474,9 +510,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
   Widget _buildHoldingPeriodCard() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.bottomContainerBackground,
-      ),
+      decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -537,7 +571,7 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
 
   Widget _buildPersistentFooter(BuildContext context) {
     return Container(
-      color: const Color(0xFF2E3546), 
+      color: const Color(0xFF2E3546),
       padding: EdgeInsets.only(
         left: 16,
         right: 16,
@@ -569,9 +603,7 @@ Widget _buildStatsTabView(TraderDetails details) {
     children: [
       Container(
         padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: AppColors.bottomContainerBackground,
-        ),
+        decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -583,8 +615,14 @@ Widget _buildStatsTabView(TraderDetails details) {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: AppColors.tertiaryBackground, borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.tertiaryBackground,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: const Row(
                     children: [
                       Text('7 days '),
@@ -619,9 +657,7 @@ Widget _buildStatsTabView(TraderDetails details) {
 
       Container(
         padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: AppColors.bottomContainerBackground,
-        ),
+        decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -631,11 +667,53 @@ Widget _buildStatsTabView(TraderDetails details) {
             ),
             const SizedBox(height: 16),
             Wrap(
-              spacing: 12.0, 
-              runSpacing: 12.0, 
+              spacing: 12.0,
+              runSpacing: 12.0,
               children: stats.tradingPairs
                   .map((pair) => TradingPairChip(pair: pair))
                   .toList(),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildCopiersTabView(TraderDetails details) {
+  return ListView(
+    padding: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
+    children: [
+      Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(color: AppColors.bottomContainerBackground),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Search for copiers',
+                suffixIcon: const Icon(Icons.search),
+                filled: true,
+                fillColor: AppColors.innerBackground,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                itemCount: details.copiers.length,
+                shrinkWrap: true,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return CopierCard(copier: details.copiers[index]);
+                },
+              ),
             ),
           ],
         ),

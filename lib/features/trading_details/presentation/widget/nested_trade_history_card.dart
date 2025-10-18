@@ -9,9 +9,7 @@ class NestedTradeHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        // color: AppColors.bottomContainerBackground,
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Column(

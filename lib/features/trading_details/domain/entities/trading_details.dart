@@ -1,4 +1,5 @@
 import 'package:roqqu_test/features/copy_trading/domain/entities/pro_trader.dart';
+import 'package:roqqu_test/features/trading_details/domain/entities/copier.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/nested_current_trade.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/nested_trading_history.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_stats.dart';
@@ -13,6 +14,7 @@ class TraderDetails {
   final TraderStats stats;
   final List<NestedCurrentTrade> allTradesCurrent;
   final List<NestedTradeHistory> allTradesHistory;
+  final List<Copier> copiers;
 
   const TraderDetails({
     required this.trader,
@@ -24,5 +26,6 @@ class TraderDetails {
     required this.stats,
     required this.allTradesCurrent,
     required this.allTradesHistory,
+    required this.copiers, 
   });
 }
