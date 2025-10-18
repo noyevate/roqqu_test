@@ -10,9 +10,12 @@ import 'package:roqqu_test/features/copy_trading/presentation/widget/trader_avat
 import 'package:roqqu_test/features/copy_warning/presentation/widgets/copy_warning_dialog.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/stat_row.dart';
 import 'package:roqqu_test/features/dashboard/presentation/widgets/trading_pair_chip.dart';
+import 'package:roqqu_test/features/trading_details/domain/entities/nested_current_trade.dart';
+import 'package:roqqu_test/features/trading_details/domain/entities/nested_trading_history.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_details.dart';
 import 'package:roqqu_test/features/trading_details/domain/entities/trading_stats.dart';
 import 'package:roqqu_test/features/trading_details/presentation/performace_line_chart.dart';
+import 'package:roqqu_test/features/trading_details/presentation/widget/all_trades_tab_view.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/asset_allocation_donut_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/holding_period_scatter_chart.dart';
 import 'package:roqqu_test/features/trading_details/presentation/widget/info_chip.dart';
@@ -32,6 +35,66 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
   Future<TraderDetails> _fetchTraderDetails() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return TraderDetails(
+      allTradesCurrent: const [
+        NestedCurrentTrade(
+          pair: 'BTCUSDT',
+          leverage: '10X',
+          roi: 3.28,
+          entryPrice: 1.9661,
+          marketPrice: 1.9728,
+          copiers: 20,
+          copiersAmount: 1009.772,
+          entryTime: '01:22 PM',
+        ),
+        NestedCurrentTrade(
+          pair: 'ETHUSDT',
+          leverage: '5X',
+          roi: 1.52,
+          entryPrice: 150.45,
+          marketPrice: 152.80,
+          copiers: 15,
+          copiersAmount: 850.50,
+          entryTime: '11:58 AM',
+        ),
+      ],
+
+      allTradesHistory: const [
+        NestedTradeHistory(
+          pair: 'BTCUSDT',
+          leverage: '10X',
+          roi: 3.28,
+          entryPrice: 1.9661,
+          exitPrice: 1.9728,
+          copiers: 20,
+          copiersAmount: 1009.772,
+          entryTime: '01:22 PM',
+          exitTime: '01:22 PM',
+        ),
+        NestedTradeHistory(
+          pair: 'XRPUSDT',
+          leverage: '20X',
+          roi: -1.15, 
+          entryPrice: 0.5210,
+          exitPrice: 0.5150,
+          copiers: 30,
+          copiersAmount: 1500.00,
+          entryTime: 'Yesterday',
+          exitTime: 'Yesterday',
+        ),
+        NestedTradeHistory(
+          pair: 'DOGEUSDT',
+          leverage: '10X',
+          roi: 5.80,
+          entryPrice: 0.0750,
+          exitPrice: 0.0793,
+          copiers: 50,
+          copiersAmount: 2500.00,
+          entryTime: '2 days ago',
+          exitTime: '1 day ago',
+        ),
+      ],
+    
+      
       trader: const ProTrader(
         initials: 'BM',
         name: 'BTC Master',
@@ -152,7 +215,8 @@ class _TradingDetailsScreenState extends State<TradingDetailsScreen>
                     children: [
                       _buildChartTabView(details),
                       _buildStatsTabView(details),
-                      const Center(child: Text('All Trades View')),
+                      
+                      AllTradesTabView(details: details,),
                       const Center(child: Text('Copiers View')),
                      
                     ],
