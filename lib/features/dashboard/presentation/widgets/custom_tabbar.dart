@@ -26,7 +26,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
   }
 
   void _handleTabChange() {
-    // rebuild when tab changes or animation completes
     if (mounted) setState(() {});
   }
 

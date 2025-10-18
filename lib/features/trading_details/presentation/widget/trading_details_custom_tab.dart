@@ -26,7 +26,6 @@ class _TradingDetailsCustomTabState extends State<TradingDetailsCustomTab> {
   }
 
   void _handleTabChange() {
-    // rebuild when tab changes or animation completes
     if (mounted) setState(() {});
   }
 
