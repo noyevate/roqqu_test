@@ -91,7 +91,6 @@ class _CopyWarningBottomSheetState extends State<CopyWarningBottomSheet> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // Navigator.of(context).pop();
                               showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.transparent,

@@ -41,11 +41,7 @@ class TraderAvatar extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: baseColor.withOpacity(0.3)
-              // gradient: LinearGradient(
-              //   colors: [lighterFadedColor, Colors.transparent],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              // ),
+              
             ),
             child: Center(
               child: Text(
@@ -72,11 +68,7 @@ class TraderAvatar extends StatelessWidget {
             ),
             child: Image.asset("assets/images/bage_pro.png", height: 100, width: 100,)
             
-            // Icon(
-            //   Icons.verified,
-            //   color: Colors.white,
-            //   size: badgeIconSize,
-            // ),
+           
           ),
         ),
       ],

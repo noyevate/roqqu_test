@@ -37,7 +37,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
 
   @override
   Widget build(BuildContext context) {
-    final List<double> tabWidths = [70, 120, 50, 90];
+    final List<double> tabWidths = [50, 120, 40, 110];
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),

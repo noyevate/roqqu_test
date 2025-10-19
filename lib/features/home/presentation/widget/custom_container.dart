@@ -6,12 +6,13 @@ class CustomContainer extends StatelessWidget {
 
   final Widget containerContent;
 
+
   @override
   Widget build(BuildContext context) {
     final screenWidth =  MediaQuery.of(context).size.width;
     return SizedBox(
       
-      height: MediaQuery.of(context).size.height * 0.8,
+      height: MediaQuery.of(context).size.height * 0.9,
       width: screenWidth,
       
       child: ClipRRect(

@@ -4,9 +4,8 @@ import 'package:roqqu_test/features/home/presentation/widget/app_bar_widget.dart
 import 'package:roqqu_test/features/home/presentation/widget/coin_list_section.dart';
 import 'package:roqqu_test/features/home/presentation/widget/custom_container.dart';
 import 'package:roqqu_test/features/home/presentation/widget/stay_updated.dart';
-import 'package:roqqu_test/features/shell/presentation/pages/custom_bottom_navr_bar.dart';
-// Import your new bottom nav bar
-// We'll create these widgets next
+import 'package:roqqu_test/features/shell/presentation/pages/main_shell.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,22 +14,37 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavBar(),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.2),
+        preferredSize: Size.fromHeight(screenHeight * 0.09),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           decoration: BoxDecoration(gradient: AppColors.hompageGradient),
           child: SafeArea(child: AppbarWidget()),
         ),
       ),
-      body: HomeBody(), // We'll build the body separately
+      body: HomeBody(
+        onSeeMoreTapped: () {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false, 
+              pageBuilder: (context, animation, secondaryAnimation) => const MainShell(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            ),
+          );
+        },
+      ), 
     );
   }
 }
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key});
+  const HomeBody({super.key, required this.onSeeMoreTapped});
+   final VoidCallback onSeeMoreTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -107,20 +121,23 @@ class HomeBody extends StatelessWidget {
                         ),
                       ),
 
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                      GestureDetector(
+                        onTap: onSeeMoreTapped,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
                           ),
-                          color: AppColors.bottomContainerBackground,
-                          border: Border.all(color: AppColors.innerBackground),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                            color: AppColors.bottomContainerBackground,
+                            border: Border.all(color: AppColors.innerBackground),
+                          ),
+                          child: Text("See More", style: TextStyle(color: AppColors.accentBlue),),
                         ),
-                        child: Text("See More", style: TextStyle(color: AppColors.accentBlue),),
                       ),
 
                       SizedBox(height: 20,),
@@ -231,13 +248,13 @@ class _buildAmountText extends StatelessWidget {
         ),
         children: [
           const TextSpan(
-            text: '£0', // Main number
+            text: '£0', 
             style: TextStyle(fontSize: 30       , height: 1.0),
           ),
           WidgetSpan(
             alignment: PlaceholderAlignment.top,
             child: Transform.translate(
-              offset: const Offset(0, 2), // raises the .00 a bit
+              offset: const Offset(0, 2), 
               child: Text(
                 '.00',
                 style: const TextStyle(
@@ -253,57 +270,3 @@ class _buildAmountText extends StatelessWidget {
     );
   }
 }
-
-
-// SafeArea(
-    //   child: CustomScrollView(
-    //     slivers: [
-    //       // A custom SliverAppBar for the top section
-    //       SliverAppBar(
-    //         pinned: true,
-    //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    //         elevation: 0,
-    //         leadingWidth: 120,
-    //         leading: Padding(
-    //           padding: const EdgeInsets.only(left: 16.0),
-    //           child: Chip(
-    //             label: const Row(children: [Text('Crypto'), Icon(Icons.keyboard_arrow_down)]),
-    //             backgroundColor: AppColors.tertiaryBackground,
-    //           ),
-    //         ),
-    //         actions: [
-    //           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-    //           IconButton(onPressed: () {}, icon: const Icon(Icons.headset_mic_outlined)),
-    //           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_outlined)),
-    //           // ... Add your flag chip here
-    //           const SizedBox(width: 16),
-    //         ],
-    //       ),
-          
-    //       // The rest of the content is in a SliverList for seamless scrolling
-    //       SliverList(
-    //         delegate: SliverChildListDelegate(
-    //           [
-    //             const Padding(
-    //               padding: EdgeInsets.all(16.0),
-    //               child: Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   BalanceCard(),
-    //                   SizedBox(height: 24),
-    //                   CopyTradingBanner(),
-    //                   SizedBox(height: 24),
-    //                   Text('Stay Updated', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-    //                   SizedBox(height: 16),
-    //                   // StayUpdatedSection(),
-    //                   SizedBox(height: 24),
-    //                   // CoinListSection(),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );

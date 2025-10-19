@@ -1,8 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'dart:math'; 
 
 typedef YAxisLabelFormatter = String Function(double value);
@@ -84,7 +82,7 @@ class PerformanceLineChart extends StatelessWidget {
              sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 30,
-              interval: (mainSpots.length / 5).floor().toDouble(), // Show ~5 labels
+              interval: (mainSpots.length / 5).floor().toDouble(), 
               getTitlesWidget: (value, meta) {
                 if (value.toInt() >= data.length) return const SizedBox.shrink();
                 final date = DateTime(2024, 3, 23).add(Duration(days: value.toInt()));
@@ -98,7 +96,7 @@ class PerformanceLineChart extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: fillSpots,
-            barWidth: 0, // Invisible line
+            barWidth: 0, 
             dotData: const FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,

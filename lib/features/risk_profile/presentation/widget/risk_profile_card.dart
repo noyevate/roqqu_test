@@ -32,7 +32,7 @@ class RiskProfileCard extends StatelessWidget {
             padding: EdgeInsets.all(screenWidth * 0.05),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: const Color(0xFF2E3546), // Card background color
+              color: const Color(0xFF2E3546), 
               border: Border.all(
                 color: isSelected ? AppColors.accentBlue : Colors.transparent,
                 width: 2.0,
@@ -63,7 +63,6 @@ class RiskProfileCard extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                  // shape: BoxShape.circle,
                   color: AppColors.accentBlue,
                 ),
                 child: const Icon(

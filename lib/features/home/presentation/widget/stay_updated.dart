@@ -112,10 +112,9 @@ class _PageIndicator extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 4.0),
       padding: EdgeInsets.symmetric(horizontal: 4.0),
       height: 8.0,
-      width: isActive ? 16.0 : 8.0, // Active dot is wider
+      width: isActive ? 16.0 : 8.0,
       decoration: BoxDecoration(
         color: isActive ? Colors.white : Colors.white.withOpacity(0.4),
-        // borderRadius: BorderRadius.circular(12),
         shape: BoxShape.circle
       ),
     );

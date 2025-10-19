@@ -33,7 +33,24 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Copy trading')),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: AppColors.primaryText),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text(
+          'Copy trading',
+          style: TextStyle(
+            color: AppColors.primaryText,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
         child: Column(
@@ -47,11 +64,9 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => MyDashboardScreen()));
                   },
                   child: Expanded(child: Image.asset( "assets/images/dashboard_2.png"))),
-                // Expanded(child: DashboardCard(url:"assets/images/icon_1.png", title: 'My dashboard', subtitle: 'View trades', icon: Icons.dashboard, gradient: AppColors.dashboardLinearGradient)),
                 const SizedBox(width: 16),
 
                 Expanded(child: Image.asset( "assets/images/dashboard_1.png")),
-                // Expanded(child: DashboardCard(url:"assets/images/icon_1.png", title: 'Become a PRO trader', subtitle: 'Apply Now', icon: Icons.workspace_premium, gradient: AppColors.dashboardLinearGradient_2)),
               ],
             ),
             const SizedBox(height: 24),
@@ -71,7 +86,7 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
                 }
                 final traders = snapshot.data!;
                 return ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(), // Important for nested list
+                  physics: const NeverScrollableScrollPhysics(), 
                   shrinkWrap: true,
                   itemCount: traders.length,
                   separatorBuilder: (context, index) => const SizedBox(height: 16),
@@ -105,7 +120,6 @@ class _CopyTradingScreenState extends State<CopyTradingScreen> {
             children: [
               Row(
                 children: [
-                  // CircleAvatar(child: Text(trader.initials)),
                   TraderAvatar(
                 initials: trader.initials,
                 baseColor: ColorGenerator.fromName(trader.name),

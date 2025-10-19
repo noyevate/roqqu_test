@@ -60,9 +60,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primaryText),
+          icon: const Icon(Icons.arrow_back_ios, color: AppColors.primaryText),
           onPressed: () {
-            // Handle back navigation
             Navigator.of(context).pop();
           },
         ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:roqqu_test/core/theme/gradient_button.dart';
 import 'package:roqqu_test/core/widget/custom_nav_bar_1.dart';
 import 'package:roqqu_test/features/copy_trading/presentation/pages/copy_trading_screen.dart';
 
@@ -18,7 +16,6 @@ class TransactionSuccessScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      // No AppBar for a clean, full-screen look
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06)
             .copyWith(bottom: MediaQuery.of(context).viewPadding.bottom + 16),

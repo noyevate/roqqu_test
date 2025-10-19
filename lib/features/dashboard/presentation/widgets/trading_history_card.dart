@@ -10,7 +10,6 @@ class TradingHistoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // color: AppColors.tertiaryBackground,
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Column(

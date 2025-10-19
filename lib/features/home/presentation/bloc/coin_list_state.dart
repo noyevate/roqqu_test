@@ -7,7 +7,7 @@ class CoinListInitial extends CoinListState {}
 class CoinListLoading extends CoinListState {}
 
 class CoinListLoaded extends CoinListState {
-  final Map<String, Coin> coins; // Use a map for efficient updates
+  final Map<String, Coin> coins; 
   CoinListLoaded(this.coins);
 }
 

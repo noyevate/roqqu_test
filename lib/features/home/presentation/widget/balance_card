@@ -1,4 +1,3 @@
-// This widget shows the balance and action buttons
 import 'package:flutter/material.dart';
 import 'package:roqqu_test/core/theme/app_colors.dart';
 

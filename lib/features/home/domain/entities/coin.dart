@@ -13,7 +13,6 @@ class Coin {
     this.priceChangePercent = 0.0,
   });
   
-  // Helper method for updating with new data
   Coin copyWith({double? price, double? priceChangePercent}) {
     return Coin(
       name: name,

@@ -37,7 +37,7 @@ class DashboardCard extends StatelessWidget {
             ),
             child: Icon(icon, color: Colors.white, size: 24),
           ),
-          const Spacer(), // This correctly fills the vertical space
+          const Spacer(), 
           Text(
             title,
             style: const TextStyle(

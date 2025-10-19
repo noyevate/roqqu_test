@@ -27,13 +27,12 @@ class _ConfirmPinScreenState extends State<ConfirmPinScreen> {
 
     if (_pin.length == _pinLength) {
       print('PIN entered: $_pin');
-      Navigator.of(context).pushAndRemoveUntil(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const TransactionSuccessScreen(
             traderName: 'BTC Master', 
           ),
         ),
-        (Route<dynamic> route) => false,
       );
     }
   }

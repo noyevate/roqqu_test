@@ -1,6 +1,4 @@
-// This widget shows the promotional banner
 import 'package:flutter/material.dart';
-import 'package:roqqu_test/core/theme/app_colors.dart';
 
 class CopyTradingBanner extends StatelessWidget {
   const CopyTradingBanner({super.key});

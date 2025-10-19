@@ -3,6 +3,7 @@ import 'package:roqqu_test/core/theme/app_colors.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({super.key});
+  
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
@@ -20,43 +21,38 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.13, // Give it a fixed, comfortable height
+      height: screenHeight * 0.13, 
       child: Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
           BottomAppBar(
             color: AppColors.bottomContainerBackground,
-            shape: const CircularNotchedRectangle(), // Optional: for aesthetics
+            shape: const CircularNotchedRectangle(), 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(Icons.home_outlined, 'Home', 0, hasNotification: true),
-                _buildNavItem(Icons.account_balance_wallet_outlined, 'Wallet', 1),
-                const SizedBox(width: 48), // Spacer for the central FAB
-                _buildNavItem(Icons.swap_horiz, 'History', 3),
-                _buildNavItem(Icons.person_outline, 'Profile', 4),
+                _buildNavItem("assets/images/home.png", 'Home', 0, hasNotification: true),
+                _buildNavItem("assets/images/wallet.png", 'Wallet', 1),
+                const SizedBox(width: 48), 
+                _buildNavItem("assets/images/transaction.png", 'History', 3),
+                _buildNavItem("assets/images/profile.png", 'Profile', 4),
               ],
             ),
           ),
           Positioned(
-            top: screenHeight / 55,
+            top: screenHeight / 5000,
             child: Container(
               height: 64,
               width: 64,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: AppColors.floatingAcctionLinearGradient
-                // LinearGradient(
-                //   colors: [AppColors.primaryGradientStart, AppColors.accentBlue],
-                //   
-                // ),
-              ),
+              
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                child: const Icon(Icons.close, size: 32, color: Colors.white),
+                child: Image.asset("assets/images/floating_action.png"),
               ),
             ),
           ),
@@ -65,7 +61,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index, {bool hasNotification = false}) {
+  Widget _buildNavItem(String imageAssetPath, String label, int index, {bool hasNotification = false}) {
     final bool isSelected = _selectedIndex == index;
     return InkWell(
       onTap: () => _onItemTapped(index),
@@ -78,7 +74,12 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Icon(icon, color: isSelected ? Colors.white : Colors.white70),
+                Image.asset(
+                  imageAssetPath,
+                  height: 24, 
+                  width: 24,  
+                  color: isSelected ? Colors.white : Colors.white70, 
+                ),
                 if (hasNotification)
                   Positioned(
                     top: -4,
