@@ -1,0 +1,60 @@
+// This widget shows the balance and action buttons
+import 'package:flutter/material.dart';
+import 'package:roqqu_test/core/theme/app_colors.dart';
+
+class BalanceCard extends StatelessWidget {
+  const BalanceCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: AppColors.bottomContainerBackground,
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Your GBP Balance ', style: TextStyle(color: Colors.white70)),
+              Icon(Icons.info_outline, color: Colors.white70, size: 16),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text('£0.00', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 24),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _ActionButton(icon: Icons.account_balance_wallet, label: 'Deposit'),
+              _ActionButton(icon: Icons.shopping_cart, label: 'Buy'),
+              _ActionButton(icon: Icons.north_west, label: 'Withdraw'),
+              _ActionButton(icon: Icons.south_east, label: 'Sell'),
+            ],
+          ),
+          const SizedBox(height: 16),
+          TextButton(onPressed: () {}, child: const Text('See more')),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  const _ActionButton({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleAvatar(radius: 24, backgroundColor: AppColors.tertiaryBackground, child: Icon(icon, color: Colors.white)),
+        const SizedBox(height: 8),
+        Text(label),
+      ],
+    );
+  }
+}

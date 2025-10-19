@@ -27,15 +27,11 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
   @override
   void initState() {
     super.initState();
-    // Add a listener to rebuild the UI on text changes
     _amountController.addListener(() {
       setState(() {}); // This will trigger a rebuild
     });
 
-    // Show the keyboard as soon as the screen is built
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   FocusScope.of(context).requestFocus(_focusNode);
-    // });
+
   }
 
   @override
@@ -58,7 +54,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     
     final String currentAmountText = _amountController.text.isEmpty ? '0' : _amountController.text;
-    final int enteredAmount = safeIntParse(currentAmountText);  //double.tryParse(currentAmountText)) ?? 0;
+    final int enteredAmount = safeIntParse(currentAmountText); 
     final double transactionFee = enteredAmount * 0.01;
     final bool canContinue = enteredAmount > 0;
 

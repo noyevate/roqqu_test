@@ -12,7 +12,10 @@ class AppColors {
   static const Color tertiaryText = Color(0xFFA7B1BC);
   static const Color infoChipColor = Color.fromRGBO(167, 177, 188, 0.08);
   static const Color innerBackground = Color(0xFF2A2F36);
+  static const Color homepageAppbarCryptoBg = Color.fromRGBO(118, 118, 128, 0.5);
+  static const Color appBarNotification = Color(0xffF04438);
 
+// rgba(118, 118, 128, 0.12)
 
 
   
@@ -41,5 +44,19 @@ class AppColors {
         begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         stops: [0.0, 0.5, 1.0],
+      );
+
+      static LinearGradient get hompageGradient => const LinearGradient(
+        colors: [Color(0xffC0CFFE), Color(0xffF3DFF4), Color(0xffF9D8E5)]
+      );
+
+      static LinearGradient get copTradingAdGradient => const LinearGradient(
+        colors: [Color(0xffABE2F3), Color(0xffBDE4E5), Color(0xffEBE9D0)]
+      );
+
+      static LinearGradient get floatingAcctionLinearGradient => const LinearGradient(
+        colors: [Color(0xff2764FFE), Color(0xff1D3573), Color(0xffF9D8E5)],
+        begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
       );
 }
