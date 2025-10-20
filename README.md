@@ -87,7 +87,7 @@ Follow these instructions to set up and run the project locally.
 
 ### Prerequisites
 
--   Flutter SDK (version 3.x.x recommended)
+-   Flutter SDK (version 3.9.2 recommended)
 -   An IDE like VS Code or Android Studio
 -   An iOS Simulator or Android Emulator with an active internet connection.
 
@@ -95,8 +95,8 @@ Follow these instructions to set up and run the project locally.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/roqqu-assessment.git
-    cd roqqu-assessment
+    git clone https://github.com/noyevate/roqqu_test.git
+    cd roqqu-test
     ```
 
 2.  **Install dependencies:**
